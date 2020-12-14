@@ -8,8 +8,8 @@
       lapply(dl, function(x) {
         tmp <- select_(as.data.table(x, stringsAsFactors = FALSE),
                        paste0("-", attr(x, "sf_column", exact = TRUE)))
-        if(nrow(tmp) == 0) {
-          tmp <- data.table(tmpCol = rep(NA, dl[[x]] %>% nrow))
+        if(nrow(tmp) == 0 | ncol(tmp) == 1) {
+          tmp <- data.table(tmpCol = rep(NA, x %>% nrow))
         }
         return(tmp)
       }),
