@@ -9,7 +9,7 @@
         tmp <- select_(as.data.table(x, stringsAsFactors = FALSE),
                        paste0("-", attr(x, "sf_column", exact = TRUE)))
         if(nrow(tmp) == 0) {
-          tmp <- data.table(tmpCol = rep(NA, dl[[12]] %>% nrow))
+          tmp <- data.table(tmpCol = rep(NA, dl[[x]] %>% nrow))
         }
         return(tmp)
       }),

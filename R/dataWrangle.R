@@ -100,6 +100,8 @@ dataWrangle <- function(dataCut, columnNames = NULL) {
                filter(osm_id %in% dups) %>%
                select(-feature) %>%
                st_as_sf) %>%
+      .rmNullList %>% #
+      .rmEmptyList %>% #
       .bind_rows_sf %>%
       unique()
 
