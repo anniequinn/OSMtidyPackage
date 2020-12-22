@@ -2,6 +2,7 @@ dataFilter <- function(dataWrangle, filters, rows = NULL) {
 
   require(purrr)
   require(readxl)
+  require(progress)
 
   timeStamp <- paste0(Sys.time() %>% format("%H:%M:%S"), " ")
   message(paste0(timeStamp, "Step one of one"))
