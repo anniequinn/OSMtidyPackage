@@ -61,7 +61,7 @@ dataWrangle <- function(dataCut, columnNames = NULL) {
     save_noDetail[[i]] =
       tmp[count <= countThreshold] %>%
       select(contains("osm_id"), contains("geometry"), contains("feature")) %>%
-      st_as_sf()
+      OSMtidyPackage:::.bind_rows_sf()()
     tmp = tmp[count > countThreshold] %>% .rmCols
     if(!tmp$count %>% is.null) { tmp[, count := NULL] }
 
@@ -101,7 +101,7 @@ dataWrangle <- function(dataCut, columnNames = NULL) {
       modify(. %>%
                filter(osm_id %in% dups) %>%
                select(-feature) %>%
-               st_as_sf) %>%
+               OSMtidyPackage:::.bind_rows_sf()) %>%
       .rmNullList %>% #
       .rmEmptyList %>% #
       .bind_rows_sf %>%
@@ -112,7 +112,7 @@ dataWrangle <- function(dataCut, columnNames = NULL) {
       outputTrimmed %>%
       modify(. %>% filter(!osm_id %in% dups) %>% .rmCols) %>%
       .rmEmptyList %>%
-      modify(. %>% st_as_sf) %>%
+      modify(. %>% OSMtidyPackage:::.bind_rows_sf()) %>%
       append(list(dupsTreated))
 
   }

@@ -4,7 +4,7 @@ makeValid <- function(dg) {
   output <-
     tryCatch(
       dg %>%
-        st_as_sf(crs = 4326) %>%
+        OSMtidyPackage:::.bind_rows_sf(crs = 4326) %>%
         st_make_valid %>%
         mutate(type = st_geometry_type(geometry) %>% as.character) %>%
         select(desc = desc, type, geometry) %>%
@@ -17,14 +17,13 @@ makeValid <- function(dg) {
           list(output %>%
                  filter(valid == FALSE) %>%
                  ungroup %>%
-                 st_as_sf() %>%
+                 OSMtidyPackage:::.bind_rows_sf() %>%
                  st_make_valid,
                output %>%
                  filter(valid == TRUE) %>%
-                 st_as_sf %>%
+                 OSMtidyPackage:::.bind_rows_sf %>%
                  st_make_valid()) %>%
           OSMtidyPackage:::.bind_rows_sf() %>%
-          st_as_sf() %>%
           st_make_valid() %>%
           mutate(type = st_geometry_type(geometry) %>% as.character) %>%
           select(desc = desc, type, geometry) %>%
@@ -76,7 +75,7 @@ simplifyIntersects <- function(input, desc, maxIterations = 100) {
   iL_n <- lengths(iI)
   iI <- iI[order(iL_n, decreasing = TRUE)]
   output <- list()
-  input2 <- input %>% st_as_sf %>% st_make_valid()
+  input2 <- input %>% OSMtidyPackage:::.bind_rows_sf %>% st_make_valid()
 
 
   # LOOP
@@ -182,7 +181,7 @@ simplifyPoints <-
     iL_n <- lengths(iI)
     iI <- iI[order(iL_n, decreasing = TRUE)]
     output <- list()
-    input2 <- input %>% st_as_sf() %>% st_make_valid()
+    input2 <- input %>% OSMtidyPackage:::.bind_rows_sf() %>% st_make_valid()
 
 
     # LOOP

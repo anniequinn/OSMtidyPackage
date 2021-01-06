@@ -33,8 +33,7 @@ dataTidy <- function(dataList) {
     list(unfiltered =
            tryCatch({
              outputList[which(outputList %>% names == "unfiltered")] %>%
-               modify(. %>% st_as_sf()) %>%
-               .bind_rows_sf() %>%
+               modify(. %>% OSMtidyPackage:::.bind_rows_sf()) %>%
                as_tibble() %>%
                .rmCols
            }, error = function(e) NULL),
@@ -42,8 +41,7 @@ dataTidy <- function(dataList) {
          removeKeywordFilters =
            tryCatch({
              outputList[which(outputList %>% names == "removeKeywordFilters")] %>%
-               modify(. %>% st_as_sf()) %>%
-               .bind_rows_sf() %>%
+               modify(. %>% OSMtidyPackage:::.bind_rows_sf()) %>%
                as_tibble() %>%
                .rmCols
            }, error = function(e) NULL),
@@ -51,8 +49,7 @@ dataTidy <- function(dataList) {
          remove =
            tryCatch({
              outputList[which(outputList %>% names == "remove")] %>%
-               modify(. %>% st_as_sf()) %>%
-               .bind_rows_sf() %>%
+               modify(. %>% OSMtidyPackage:::.bind_rows_sf()) %>%
                as_tibble() %>%
                .rmCols
            }, error = function(e) NULL),
@@ -60,8 +57,7 @@ dataTidy <- function(dataList) {
          filtered =
            tryCatch({
              outputList[which(outputList %>% names == "filtered")] %>%
-               modify(. %>% st_as_sf()) %>%
-               .bind_rows_sf() %>%
+               modify(. %>% OSMtidyPackage:::.bind_rows_sf()) %>%
                as_tibble() %>%
                .rmCols
            }, error = function(e) NULL)

@@ -30,8 +30,8 @@ dataCut <- function(dataExtracted, dataShapefile) {
         suppressWarnings(
           x %>%
             as_tibble %>%
-            st_as_sf %>%
-            st_join(dataShapefile %>% as_tibble %>% st_as_sf, left = FALSE)
+            OSMtidyPackage:::.bind_rows_sf %>%
+            st_join(dataShapefile %>% as_tibble %>% OSMtidyPackage:::.bind_rows_sf, left = FALSE)
         )
       )
 

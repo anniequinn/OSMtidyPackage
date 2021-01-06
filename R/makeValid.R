@@ -3,7 +3,7 @@ makeValid <- function(dg) {
   output <-
     tryCatch(
       dg %>%
-        st_as_sf(crs = 4326) %>%
+        OSMtidyPackage:::.bind_rows_sf(crs = 4326) %>%
         st_make_valid %>%
         mutate(type = st_geometry_type(geometry) %>% as.character) %>%
         select(desc = desc, type, geometry) %>%
@@ -16,14 +16,14 @@ makeValid <- function(dg) {
           list(output %>%
                  filter(valid == FALSE) %>%
                  ungroup %>%
-                 st_as_sf() %>%
+                 OSMtidyPackage:::.bind_rows_sf() %>%
                  st_make_valid,
                output %>%
                  filter(valid == TRUE) %>%
-                 st_as_sf %>%
+                 OSMtidyPackage:::.bind_rows_sf %>%
                  st_make_valid()) %>%
           .bind_rows_sf %>%
-          st_as_sf() %>%
+          OSMtidyPackage:::.bind_rows_sf() %>%
           st_make_valid() %>%
           mutate(type = st_geometry_type(geometry) %>% as.character) %>%
           select(desc = desc, type, geometry) %>%
