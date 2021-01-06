@@ -97,7 +97,8 @@ dataFilter <- function(dataWrangle, filters, rows = NULL) {
     } # END I LOOP
 
     validateList = validateList %>% .rmNullList %>% .rmEmptyList
-    outputList = outputList %>% .rmNullList %>% .rmEmptyList %>% modify(. %>% st_as_sf) %>% .bind_rows_sf()
+    outputList = outputList %>% .rmNullList %>% .rmEmptyList %>% modify(. %>% st_as_sf)
+    if(length(outputList) > 0) { outputList <- outputList %>% .bind_rows_sf() }
 
     INPUT[[j]] = input
     OUTPUT[[j]] = outputList
