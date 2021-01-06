@@ -97,7 +97,7 @@ dataFilter <- function(dataWrangle, filters, rows = NULL) {
     } # END I LOOP
 
     validateList = validateList %>% .rmNullList %>% .rmEmptyList
-    outputList = outputList %>% .rmNullList %>% .rmEmptyList %>% modify(. %>% OSMtidyPackage:::.bind_rows_sf()) %>% .bind_rows_sf()
+    outputList = outputList %>% .rmNullList %>% .rmEmptyList %>% modify(. %>% st_as_sf) %>% .bind_rows_sf()
 
     INPUT[[j]] = input
     OUTPUT[[j]] = outputList
@@ -124,7 +124,7 @@ dataFilter <- function(dataWrangle, filters, rows = NULL) {
     OUTPUT %>%
       .rmNullList() %>%
       .rmEmptyList() %>%
-      modify(. %>% OSMtidyPackage:::.bind_rows_sf()) %>%
+      modify(. %>% st_as_sf) %>%
       .bind_rows_sf %>%
       st_set_crs(4326) %>%
       as_tibble(),
